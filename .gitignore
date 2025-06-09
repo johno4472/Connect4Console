@@ -25,6 +25,7 @@ bld/
 
 **/bin/
 **/proj/
+.vs/
 
 # .NET Core
 project.lock.json
