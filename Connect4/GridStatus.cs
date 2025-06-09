@@ -84,7 +84,6 @@ namespace Connect4
 
         public bool CheckIfWinner()
         {
-            List<List<int>> PotentialWinner = [[]];
             for (int j = 0; j < Grid[0].Count; j++)
             {
                 for (int i = 0; i < Grid.Count; i++)
