@@ -6,34 +6,42 @@ while (true)
     Console.WriteLine("Let's Play Connect 4!");
 
     bool gameOver = false;
-    GridStatus game = new GridStatus();
+    Gameplay game = new Gameplay();
+    ConsoleLogic consoleHelper = new ConsoleLogic();
+    game.ShowGrid();
 
 
     while (!gameOver)
     {
-        game.ShowGrid();
-        Console.Write($"Player {game.CurrentPlayer}'s turn\nSelect your column: ");
+        
 
-        int columnChoice = Convert.ToInt32(Console.ReadLine());
-
-        string addResponse = game.AddPiece(columnChoice, game.CurrentPlayer);
-
-        if (addResponse != "")
+        int columnChoice = consoleHelper.PlayerChooseColumn(game);
+        
+        if (!game.RedoTurn)
         {
-            game.RedoTurn = true;
-            Console.WriteLine(addResponse);
+            string addResponse = game.AddPiece(columnChoice, game.CurrentPlayer);
 
+            if (addResponse != "")
+            {
+                game.RedoTurn = true;
+                Console.WriteLine(addResponse);
+            }
+
+            if (game.CheckIfEndGame())
+            {
+                Console.WriteLine($"Game over! Player {game.CurrentPlayer} wins.");
+                game.ShowGrid();
+                Console.WriteLine("We changed the winning set with the number 8 for you to spot it. Good game!");
+                gameOver = true;
+            }
         }
 
-        if (game.CheckIfEndGame())
-        {
-            Console.WriteLine($"Game over! Player {game.CurrentPlayer} wins.");
+
+        if (!game.RedoTurn) 
+        { 
+            game.ChangePlayer();
             game.ShowGrid();
-            Console.WriteLine("We changed the winning set with the number 8 for you to spot it. Good game!");
-            gameOver = true;
         }
-
-        if (!game.RedoTurn) { game.ChangePlayer(); }
         else { game.RedoTurn = false; }
 
     }
