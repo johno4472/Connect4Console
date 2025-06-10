@@ -42,15 +42,19 @@ namespace Connect4
             return -1;
         }
 
-        public string AddPiece(int column, int player)
+        public void AddPiece(int column, int player = 0)
         {
             int row = GetLowestRow(column - 1);
             if (row == -1)
             {
-                return $"Column {column - 1} is full. Try again\n";
+                RedoTurn = true;
+                Console.WriteLine($"Column {column - 1} is full. Try again");
+                return;
             }
+
+            if (player == 0) { player = CurrentPlayer; }
             Grid[row][column - 1] = player;
-            return "";
+            return;
         }
 
         public void ShowGrid()

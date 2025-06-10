@@ -48,5 +48,53 @@ namespace Connect4Tests
             game.RedoTurn.Should().BeFalse();
             consoleHelper.InputParseSuccess.Should().BeTrue();
         }
+
+        [Fact]
+        public void PieceAddedToColumnLandsAtBottomRow()
+        {
+            //Arrange
+            Gameplay game = new Gameplay();
+
+            //Act
+            game.AddPiece(1, 1);
+
+            //Assert
+            game.RedoTurn.Should().BeFalse();
+            game.Grid[0][0].Should().Be(1);
+        }
+
+        [Fact]
+        public void CanAddPiecesToTheTopRow()
+        {
+            //Arrange
+            Gameplay game = new Gameplay();
+
+            //Act
+            for (int i = 0; i < 6; i++)
+            {
+                game.AddPiece(1, 1);
+            }
+
+            //Assert
+            game.RedoTurn.Should().BeFalse();
+            for (int i = 0; i < 6; i++) { game.Grid[i][0].Should().Be(1); }
+        }
+
+        [Fact]
+        public void AddingToFullColumnMakesTurnRedo()
+        {
+            //Arrange
+            Gameplay game = new Gameplay();
+            for (int i = 0; i < 6; i++)
+            {
+                game.AddPiece(1, 1);
+            }
+
+            //Act
+            game.AddPiece(1, 1);
+
+            //Assert
+            game.RedoTurn.Should().BeTrue();
+        }
     }
 }

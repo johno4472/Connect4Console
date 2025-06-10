@@ -19,15 +19,9 @@ while (true)
         
         if (!game.RedoTurn)
         {
-            string addResponse = game.AddPiece(columnChoice, game.CurrentPlayer);
+            game.AddPiece(columnChoice);
 
-            if (addResponse != "")
-            {
-                game.RedoTurn = true;
-                Console.WriteLine(addResponse);
-            }
-
-            if (game.CheckIfEndGame())
+            if (!game.RedoTurn && game.CheckIfEndGame())
             {
                 Console.WriteLine($"Game over! Player {game.CurrentPlayer} wins.");
                 game.ShowGrid();
@@ -47,7 +41,7 @@ while (true)
     }
 
     Console.WriteLine("Want to play again? y/n");
-    string playAgain = Console.ReadLine();
+    string? playAgain = Console.ReadLine();
     if (playAgain == "n")
     {
         Console.WriteLine("See ya!");
