@@ -25,9 +25,9 @@ namespace Connect4
 
         public bool RedoTurn { get; set; } = false;
 
-        public int ChangePlayer(int player)
+        public int ChangePlayer()
         {
-            if (player == 2) { return 1; } else { return 2; }
+            if (CurrentPlayer == 2) { return 1; } else { return 2; }
         }
 
         public int GetLowestRow(int column)

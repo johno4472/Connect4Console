@@ -6,18 +6,17 @@ while (true)
     Console.WriteLine("Let's Play Connect 4!");
 
     bool gameOver = false;
-    int player = 1;
     GridStatus game = new GridStatus();
 
 
     while (!gameOver)
     {
         game.ShowGrid();
-        Console.Write($"Player {player}'s turn\nSelect your column: ");
+        Console.Write($"Player {game.CurrentPlayer}'s turn\nSelect your column: ");
 
         int columnChoice = Convert.ToInt32(Console.ReadLine());
 
-        string addResponse = game.AddPiece(columnChoice, player);
+        string addResponse = game.AddPiece(columnChoice, game.CurrentPlayer);
 
         if (addResponse != "")
         {
@@ -34,7 +33,7 @@ while (true)
             gameOver = true;
         }
 
-        if (!game.RedoTurn) { player = game.ChangePlayer(player); }
+        if (!game.RedoTurn) { game.ChangePlayer(); }
         else { game.RedoTurn = false; }
 
     }
