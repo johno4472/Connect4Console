@@ -17,10 +17,12 @@ namespace Connect4
 
         public List<string> ValidColumns = ["1",  "2", "3", "4", "5", "6", "7"];
 
-        public int PlayerChooseColumn(Gameplay game)
+        public int PlayerChooseColumn(Gameplay game, string? playerResponse = null)
         {
             Console.Write($"Player {game.CurrentPlayer}'s turn\nSelect your column: ");
-            string? playerResponse = Console.ReadLine();
+
+            if (playerResponse == null) { playerResponse = Console.ReadLine(); }
+
             if (playerResponse == null || !ValidColumns.Contains(playerResponse))
             {
                 ResponseMessage = "Incorrect input for column choice";
@@ -29,6 +31,7 @@ namespace Connect4
                 Console.WriteLine("Not a valid response. Please enter a digit 1-7");
                 return ColumnChoice;
             }
+
             InputParseSuccess = true;
             ResponseMessage = "Correct Input for column choice";
             return Convert.ToInt32(playerResponse);

@@ -1,0 +1,30 @@
+using System.Security.Cryptography.X509Certificates;
+using Connect4;
+using FluentAssertions;
+
+namespace Connect4Tests
+{
+    public class Connect4UnitTests
+    {
+        [InlineData("0")]
+        [InlineData("-1")]
+        [InlineData("8")]
+        [InlineData("1.2")]
+        [InlineData("12")]
+        [InlineData("hello")]
+        [Theory]
+        public void OutOfRangeColumnsNotAccepted(string userInput)
+        {
+            //Arrange
+            ConsoleLogic consoleHelper = new ConsoleLogic();
+            Gameplay game = new Gameplay();
+
+            //Act
+            consoleHelper.PlayerChooseColumn(game, userInput);
+
+            //Assert
+            game.RedoTurn.Should().BeTrue();
+            consoleHelper.InputParseSuccess.Should().BeFalse();
+        }
+    }
+}
